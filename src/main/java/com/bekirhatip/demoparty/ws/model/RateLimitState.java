@@ -1,3 +1,5 @@
+// This class represents the state of rate limiting for a specific user session. It tracks the start time of the current rate limit window, the count of messages sent within that window, the time until which the user is muted if they have exceeded the allowed message count, and information about repeated messages. This information is used to enforce rate limits on incoming messages from clients to prevent abuse and ensure fair usage of the chat service.
+
 package com.bekirhatip.demoparty.ws.model;
 
 public class RateLimitState {
