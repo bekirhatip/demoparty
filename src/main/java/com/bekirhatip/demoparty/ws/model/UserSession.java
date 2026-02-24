@@ -1,3 +1,5 @@
+// This class represents a user session in the chat application. It contains information about the user's username, the chat room they are in, their chosen icon and color for messages, and their unique session ID. This information is used to manage user sessions and personalize the chat experience for each user.
+
 package com.bekirhatip.demoparty.ws.model;
 
 public class UserSession {
