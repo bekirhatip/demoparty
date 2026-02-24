@@ -1,3 +1,5 @@
+// This class is a WebSocket handshake interceptor that extracts the client's IP address from the incoming HTTP request during the WebSocket handshake process. It checks for common headers like "X-Forwarded-For" and "X-Real-IP" to determine the client's real IP address, especially when the application is behind a reverse proxy. The extracted IP address is then stored in the WebSocket session attributes for later use, such as rate limiting or logging.
+
 package com.bekirhatip.demoparty.ws.interceptor;
 
 import org.springframework.http.server.ServerHttpRequest;
