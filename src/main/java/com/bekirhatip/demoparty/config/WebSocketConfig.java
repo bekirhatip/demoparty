@@ -1,3 +1,5 @@
+// This class is responsible for configuring WebSocket support in the Spring Boot application. It registers the ChatWebSocketHandler to handle WebSocket connections at the specified endpoint ("/ws/chat") and adds an interceptor (IpHandshakeInterceptor) to extract the client's IP address during the handshake process. It also allows cross-origin requests from any origin for WebSocket connections.
+
 package com.bekirhatip.demoparty.config;
 
 import com.bekirhatip.demoparty.ws.interceptor.IpHandshakeInterceptor;
