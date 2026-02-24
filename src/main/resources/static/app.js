@@ -1,3 +1,16 @@
+// This file contains the main JavaScript logic for the chat application, including user selection, WebSocket communication, message rendering, and UI interactions.
+// It initializes the selection screen where users can choose their username, room, color, and icon, and then manages the chat room interface and real-time messaging through WebSockets.
+// The code is structured into several functions:
+// - initSelectionScreen: Sets up the initial user selection interface and handles user input for username, room name, secret key, color, and icon.
+// - selectColor and selectIcon: Helper functions to manage the selection of colors and icons in the UI.
+// - initColorOptions and initIconOptions: Dynamically generate the color and icon options based on predefined arrays.
+// - startChat: Establishes the WebSocket connection, handles incoming messages, and manages the chat interface.
+// - addMessage and addSystemMessage: Functions to render user messages and system messages in the chat area.
+// - renderUsers: Updates the list of online users in the sidebar.
+// - setupMobileUsersDropdown: Manages the toggle behavior of the users list on mobile devices.
+// The code also includes event listeners for WebSocket events, form submission for sending messages, and window resize events to handle responsive design adjustments.
+
+
 const COLORS = [
     '#a8c8ec', '#b8a8d8', '#f5c2e7', '#9dd5f5', '#a8e6f5',
     '#b5e8c4', '#f5b8c4', '#f5e6a8'
