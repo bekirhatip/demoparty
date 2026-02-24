@@ -1,3 +1,6 @@
+// This class is responsible for handling WebSocket connections for the chat application. It manages user sessions, room memberships, message broadcasting, and implements rate limiting to prevent abuse. It also handles incoming messages from clients and sends appropriate responses or broadcasts to other users in the same chat room.
+
+
 package com.bekirhatip.demoparty.ws;
 
 import com.bekirhatip.demoparty.ws.dto.IncomingMessage;
