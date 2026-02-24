@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>DemoParty Chat</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.svg" type="image/x-icon">
+</head>
+<body>
+  <div id="selectionScreen">
+    <div class="selection-header">
+        <div class="selection-logo">
+            <img src="logo.svg" alt="DemoParty" style="height: 3rem;">
+        </div>
+        <h1>Welcome to DemoParty</h1>
+    </div>
+    
+    <div id="selectionScreenContent">
+      <div class="selection-group">
+        <label for="usernameInput">Username</label>
+        <input type="text" id="usernameInput" placeholder="Enter your username" autocomplete="off">
+      </div>
+      <div class="selection-group">
+        <label for="roomNameInput">Room name</label>
+        <input type="text" id="roomNameInput" placeholder="Enter your room name" autocomplete="off" value="main">
+      </div>
+      <div class="selection-group">
+        <label for="roomSecretKeyInput">Room Secret Key</label>
+        <input type="text" id="roomSecretKeyInput" placeholder="Enter your room secret key" autocomplete="off" maxlength="8">
+      </div>
+
+      <div class="selection-group">
+        <label>Choose Your Color</label>
+        <div id="colorOptions" class="color-options"></div>
+      </div>
+
+      <div class="selection-group">
+        <label>Choose Your Icon</label>
+        <div id="iconOptions" class="icon-options"></div>
+      </div>
+    </div>
+    <div class="selection-footer">
+      <button id="continueBtn" class="continue-btn">Continue</button>
+    </div>
+  </div>
+
+  <div id="chatRoom">
+    <div class="chat-header">
+      <!-- <h1>DemoParty Chat</h1> -->
+       <img src="logo.svg" alt="DemoParty" style="height: 2.8rem;">
+      <div class="header-right">
+        <div id="connectionStatus" class="connection-status">Connecting...</div>
+        <div class="user-info">
+          <div class="user-avatar">
+            <span class="avatar-emoji"></span>
+          </div>
+          <span class="user-name"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-container">
+      <div class="users-sidebar">
+        <h3 id="usersHeader" class="users-header">Online Users</h3>
+        <div id="users"></div>
+      </div>
+
+      <div class="chat-main">
+        <div id="chat"></div>
+      </div>
+    </div>
+    
+    <div class="chat-input-container">
+      <form id="chatForm">
+        <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off">
+        <button type="submit" class="send-btn">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+</body>
+</html>
