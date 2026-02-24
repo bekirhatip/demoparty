@@ -1,3 +1,5 @@
+// This class represents the structure of incoming messages from clients in the chat application. It contains fields for the message type, username, chat room, user icon, message color, and the message content itself. This class is used to deserialize JSON messages received from clients into Java objects that can be processed by the WebSocket handler.
+
 package com.bekirhatip.demoparty.ws.dto;
 
 public class IncomingMessage {
