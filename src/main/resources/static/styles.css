@@ -107,6 +107,39 @@
     font-size: 0.875rem;
     letter-spacing: 0.3px;
   }
+
+  .input-with-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-button input {
+  width: 100%;
+  padding-right: 100px; /* Buton için boşluk */
+  height: 40px;
+  padding-left: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.input-with-button button {
+  position: absolute;
+  right: 5px;
+  height: 30px;
+  padding: 0 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.input-with-button button:hover {
+  background-color: #1e40af;
+}
   
   #usernameInput {
     width: 100%;

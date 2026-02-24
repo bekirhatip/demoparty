@@ -31,7 +31,15 @@
       </div>
       <div class="selection-group">
         <label for="roomSecretKeyInput">Secret Key</label>
-        <input type="text" id="roomSecretKeyInput" placeholder="Enter your room secret key" autocomplete="off" maxlength="8">
+        <div class="input-with-button">
+          <input 
+            type="text" 
+            id="roomSecretKeyInput" 
+            placeholder="Enter your room secret key" 
+            autocomplete="off" 
+            maxlength="32">
+          <button type="button" id="generateSecretBtn">Generate</button>
+        </div>
       </div>
 
       <div class="selection-group">

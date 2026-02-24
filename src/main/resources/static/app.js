@@ -541,3 +541,26 @@ const COLORS = [
     initIconOptions();
     initSelectionScreen();
   });
+
+
+function generateSecureKey(length = 16) {
+  const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+  const values = new Uint32Array(length);
+  crypto.getRandomValues(values);
+
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += charset[values[i] % charset.length];
+  }
+
+  return result;
+}
+
+document.getElementById("generateSecretBtn").addEventListener("click", function () {
+  const input = document.getElementById("roomSecretKeyInput");
+  const maxLength = parseInt(input.getAttribute("maxlength")) || 32;
+
+  const length = Math.floor(Math.random() * (maxLength - 20 + 1)) + 20;
+
+  input.value = generateSecureKey(length);
+});
