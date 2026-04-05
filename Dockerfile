@@ -8,6 +8,10 @@ RUN mvn clean package -DskipTests
 # 2. Stage – Runtime
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
+
+# allow external log directory by mounting a host volume
+VOLUME ["/logs"]
+
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]

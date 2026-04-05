@@ -10,6 +10,8 @@ import com.bekirhatip.demoparty.ws.model.IpRateLimitState;
 import com.bekirhatip.demoparty.ws.interceptor.IpHandshakeInterceptor;
 import java.net.InetSocketAddress;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class ChatWebSocketHandler extends TextWebSocketHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(ChatWebSocketHandler.class);
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -51,6 +55,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         ipConnectionCount.put(ip, count + 1);
 
+        // log connection establishment details (session level)
+        logger.info("{{\"type\":\"connection_established\",\"ip\":\"{}\",\"session_id\":\"{}\"}}", ip, session.getId());
         System.out.println("Connected: " + session.getId() + " IP: " + ip);
     }
 
@@ -59,6 +65,11 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
         IncomingMessage incoming = objectMapper.readValue(message.getPayload(), IncomingMessage.class);
+
+        // log every request for auditing
+        String reqType = incoming.getType() == null ? "<none>" : incoming.getType();
+        logger.info("{{\"type\":\"request\",\"ip\":\"{}\",\"session_id\":\"{}\",\"request_type\":\"{}\"}}",
+                getClientIp(session), session.getId(), reqType);
 
         if (incoming.getType() == null) {
             sendError(session, "type is required");
@@ -118,6 +129,10 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         userSessions.put(session.getId(), new UserSession(finalUsername, room, icon, color, session.getId()));
         roomSessions.computeIfAbsent(room, r -> ConcurrentHashMap.newKeySet()).add(session.getId());
+
+        // log that the user has connected to a room
+        logger.info("{{\"type\":\"connected\",\"ip\":\"{}\",\"session_id\":\"{}\",\"username\":\"{}\",\"room\":\"{}\"}}",
+                getClientIp(session), session.getId(), finalUsername, room);
 
         session.sendMessage(new TextMessage("""
                 {"type":"system","message":"joined room %s", "session_id": "%s", "new_username": "%s"}
@@ -207,6 +222,10 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         broadcastToRoom(user.getRoom(), payload);
 
+        // log message event
+        logger.info("{{\"type\":\"message_sent\",\"ip\":\"{}\",\"session_id\":\"{}\",\"room\":\"{}\"}}",
+                getClientIp(session), session.getId(), user.getRoom());
+
         roomMessageHistory.computeIfAbsent(user.getRoom(), k -> new LinkedList<>());
         List<String> history = roomMessageHistory.get(user.getRoom());
         history.add(payload);
@@ -284,6 +303,10 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             String username = user.getUsername();
             String icon = user.getIcon();
             String color = user.getColor();
+
+            // log disconnect event before we remove the user entries
+            logger.info("{{\"type\":\"disconnected\",\"ip\":\"{}\",\"session_id\":\"{}\",\"username\":\"{}\",\"room\":\"{}\"}}",
+                    ip, session.getId(), username, room);
 
             Set<String> set = roomSessions.get(room);
             if (set != null) {
